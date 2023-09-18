@@ -3,6 +3,8 @@ const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const dotenv = require("dotenv");
+const swaggerUi = require("swagger-ui-express");
+const swaggerJsDoc = require("swagger-jsdoc");
 // routes file
 const authRoutes = require("./routes/auth.js");
 
@@ -17,12 +19,7 @@ const swaggerOptions = {
       description: "Code Web App API Documentation",
     },
   },
-  apis: [
-    "./routes/auth.js",
-    "./routes/chat.js",
-    "./routes/message.js",
-    "./routes/user.js",
-  ],
+  apis: ["./routes/auth.js"],
 };
 
 const swaggerSpec = swaggerJsDoc(swaggerOptions);
@@ -40,9 +37,12 @@ app.use(morgan("common"));
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 
+// ============ SWAGGER =========
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 // ========= ROUTES =========
 app.use("/api/v1", authRoutes);
 
 app.listen(PORT, () => {
-  console.log(`sever is running on port ${PORT}`);
+  console.log(`server is running on port ${PORT}`);
 });

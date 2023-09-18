@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { userLogin, registerUser } = require("../controller/auth.controller");
+const { userLogin, registerUser } = require("../controllers/auth.controller");
 
 /**
  * @swagger

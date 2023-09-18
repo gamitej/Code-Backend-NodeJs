@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const User = require("../modals/User");
+const User = require("../models/User");
 const { CompareEncodedData, EncodeData } = require("../utils/hashFunc");
 
 const userLogin = async (req, res) => {
