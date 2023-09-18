@@ -3,6 +3,8 @@ const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const dotenv = require("dotenv");
+// routes file
+const authRoutes = require("./routes/auth.js");
 
 // ======= SWAGGER OPTIONS START =======
 
@@ -39,8 +41,7 @@ dotenv.config();
 const PORT = process.env.PORT || 3000;
 
 // ========= ROUTES =========
-
-
+app.use("/api/v1", authRoutes);
 
 app.listen(PORT, () => {
   console.log(`sever is running on port ${PORT}`);
