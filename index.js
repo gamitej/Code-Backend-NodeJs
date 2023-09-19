@@ -6,24 +6,17 @@ const dotenv = require("dotenv");
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsDoc = require("swagger-jsdoc");
 const connectToMongoDb = require("./utils/dbConnection");
+// middleware
+const Protect = require("./middlewares/Protect.js");
+// utils
+const SwaggerOptions = require("./utils/swagger");
 // routes
 const authRoutes = require("./routes/auth.js");
 const exploreRoutes = require("./routes/explore.js");
 
 // ======= SWAGGER OPTIONS START =======
-const swaggerOptions = {
-  definition: {
-    openapi: "3.0.0",
-    info: {
-      title: "Code Web App",
-      version: "1.0.0",
-      description: "Code Web App API Documentation",
-    },
-  },
-  apis: ["./routes/auth.js"],
-};
 
-const swaggerSpec = swaggerJsDoc(swaggerOptions);
+const swaggerSpec = swaggerJsDoc(SwaggerOptions);
 
 // ========== MIDDLEWARE ==========
 const app = express();
@@ -44,7 +37,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // ========= ROUTES =========
 app.use("/api/v1", authRoutes);
-app.use("/api/v1", exploreRoutes);
+app.use("/api/v1", Protect, exploreRoutes);
 
 app.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);
