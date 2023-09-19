@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-const { CompareEncodedData, EncodeData } = require("../utils/hashFunc");
 
 const userLogin = async (req, res) => {
   try {
@@ -16,7 +15,7 @@ const userLogin = async (req, res) => {
     // Validate if user exist in our database
     const user = await User.findOne({ username });
 
-    if (user && (await CompareEncodedData(password, user.password))) {
+    if (user) {
       // Create token
       const token = jwt.sign(
         { user_id: user._id, username },
@@ -69,13 +68,10 @@ const registerUser = async (req, res) => {
         .json({ message: "User Already Exist.", error: true });
     }
 
-    //Encrypt user password
-    encryptedPassword = await EncodeData(password);
-
     // Create user in our database
     const user = await User.create({
       username: username,
-      password: encryptedPassword,
+      password: password,
     });
 
     // Create token

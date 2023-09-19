@@ -5,6 +5,7 @@ const helmet = require("helmet");
 const dotenv = require("dotenv");
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsDoc = require("swagger-jsdoc");
+const connectToMongoDb = require("./utils/dbConnection");
 // routes
 const authRoutes = require("./routes/auth.js");
 
@@ -33,6 +34,9 @@ app.use(morgan("common"));
 // ========= ENV VARIABLE'S =========
 dotenv.config();
 const PORT = process.env.PORT || 3000;
+const MONGO_URL = process.env.MONGO_URL;
+
+connectToMongoDb(MONGO_URL);
 
 // ============ SWAGGER =========
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
