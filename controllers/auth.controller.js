@@ -15,7 +15,7 @@ const userLogin = async (req, res) => {
     // Validate if user exist in our database
     const user = await User.findOne({ username });
 
-    if (user) {
+    if (user && password === user.password) {
       // Create token
       const token = jwt.sign(
         { user_id: user._id, username },
@@ -24,11 +24,6 @@ const userLogin = async (req, res) => {
           expiresIn: "2h",
         }
       );
-
-      // save user token
-      const response = { ...user._doc, token };
-
-      console.log(user);
 
       // user
       return res.status(200).json({
