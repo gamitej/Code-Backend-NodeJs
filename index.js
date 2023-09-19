@@ -9,8 +9,6 @@ const connectToMongoDb = require("./utils/dbConnection");
 // routes
 const authRoutes = require("./routes/auth.js");
 const exploreRoutes = require("./routes/explore.js");
-const exploreData = require("./data/explore.js");
-const Questions = require("./models/Questions");
 
 // ======= SWAGGER OPTIONS START =======
 const swaggerOptions = {
@@ -40,8 +38,6 @@ const PORT = process.env.PORT || 3000;
 const MONGO_URL = process.env.MONGO_URL;
 
 connectToMongoDb(MONGO_URL);
-
-Questions.insertMany(exploreData);
 
 // ============ SWAGGER =========
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
