@@ -8,6 +8,7 @@ const swaggerJsDoc = require("swagger-jsdoc");
 const connectToMongoDb = require("./utils/dbConnection");
 // routes
 const authRoutes = require("./routes/auth.js");
+const exploreRoutes = require("./routes/explore.js");
 
 // ======= SWAGGER OPTIONS START =======
 const swaggerOptions = {
@@ -43,6 +44,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // ========= ROUTES =========
 app.use("/api/v1", authRoutes);
+app.use("/api/v1", exploreRoutes);
 
 app.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);

@@ -26,12 +26,14 @@ const userLogin = async (req, res) => {
       );
 
       // save user token
-      response = { ...user._doc, token };
+      const response = { ...user._doc, token };
+
+      console.log(user);
 
       // user
       return res.status(200).json({
         message: "Login successfull",
-        user: { userId: user._id, username, token },
+        data: { id: user._id, username, token },
         error: false,
       });
     }
@@ -88,7 +90,7 @@ const registerUser = async (req, res) => {
     // return new user
     return res.status(201).json({
       message: "Registeration successfull",
-      user: { userId: user._id, username, token },
+      data: { id: user._id, username, token },
       error: false,
     });
   } catch (err) {
