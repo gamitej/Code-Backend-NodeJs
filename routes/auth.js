@@ -59,6 +59,6 @@ router.post("/login", userLogin);
  *         description: Internal server error
  */
 
-router.post("/register", registerUser);
+router.post("/signup", registerUser);
 
 module.exports = router;
