@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
-const uuid = require('uuid');
+const uuid = require("uuid");
 
 const UserSchema = new mongoose.Schema(
   {
     _id: {
       type: String,
-      default: () => uuid.v4(), // Generate a new UUID as the default value
+      default: () => uuid.v4(),
     },
     username: {
       type: String,
