@@ -37,7 +37,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // ========= ROUTES =========
 app.use("/api/v1", authRoutes);
-app.use("/api/v1", Protect, exploreRoutes);
+app.use("/api/v1", exploreRoutes);
 
 app.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);

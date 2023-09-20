@@ -56,6 +56,12 @@ router.get("/topics", getExploreTopics);
  *         schema:
  *           type: string
  *         description: User ID for which topics are to be retrieved
+ *       - in: query
+ *         name: topic
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Selected topic for which questions are to be retrieved
  *     responses:
  *       200:
  *         description: Successfully retrieved selected topics ques for the user
