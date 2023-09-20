@@ -1,6 +1,6 @@
 const { userData, tableData } = require("../data/dummyData");
 
-// =============== USER STATUS DATA ===================
+// ============== USER STATUS DATA ===============
 
 const getUserStatus = async (req, res) => {
   try {
