@@ -2,15 +2,69 @@ const Questions = require("../models/Questions");
 const Solved = require("../models/Solved");
 const { sortBy } = require("lodash");
 const { exploreData, selectedTopicData } = require("../data/dummyData");
+const nameMapping = require("../utils/nameMapping.json");
 
 // ==================== EXPLORE TOPIC ===================
 
 const getExploreTopics = async (req, res) => {
   try {
-    const re = req.query.id;
+    // request
+    const { id } = req.query;
 
-    return res.status(200).json({ data: exploreData, error: false });
+    if (!id)
+      return res.status(404).json({ data: "Id is required", error: true });
+
+    // data from db
+    const questions = await Questions.find();
+    const solvedQuestions = await Solved.find({ userId: id });
+
+    // convert solvedQuestions to map
+    const solvedQuestionIds = new Set(
+      solvedQuestions.map((solved) => solved.quesId)
+    );
+
+    // data manipulation
+    const topicMapping = new Map();
+
+    questions.forEach(({ topic, _id }) => {
+      if (topicMapping.has(topic)) {
+        const topicInfo = topicMapping.get(topic);
+        topicInfo.total += 1;
+
+        if (solvedQuestionIds.has(_id.toString())) {
+          topicInfo.solved += 1;
+        }
+      } else {
+        const newTopicInfo = {
+          solved: 0,
+          total: 1,
+          title: nameMapping[topic],
+          urlTitle: topic,
+        };
+
+        if (solvedQuestionIds.has(_id.toString())) {
+          newTopicInfo.solved += 1;
+        }
+
+        topicMapping.set(topic, newTopicInfo);
+      }
+    });
+
+    // final explore data
+    const exploreTopicData = Array.from(topicMapping.values());
+
+    // response data
+    const response = {
+      data: exploreTopicData,
+      onGoingTopic: {
+        data: "arrays",
+        onGoingTopic: true,
+      },
+    };
+
+    return res.status(200).json({ data: response, error: false });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ data: "Something Went Wrong!", error: true });
   }
 };
