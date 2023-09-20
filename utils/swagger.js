@@ -7,7 +7,7 @@ const SwaggerOptions = {
       description: "Code Web App API Documentation",
     },
   },
-  apis: ["./routes/auth.js", "./routes/explore.js"],
+  apis: ["./routes/auth.js", "./routes/explore.js", "./routes/profile.js"],
 };
 
 module.exports = SwaggerOptions;
