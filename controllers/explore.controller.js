@@ -1,7 +1,6 @@
 const Questions = require("../models/Questions");
 const Solved = require("../models/Solved");
 const { sortBy } = require("lodash");
-const { exploreData, selectedTopicData } = require("../data/dummyData");
 const nameMapping = require("../utils/nameMapping.json");
 
 // ==================== EXPLORE TOPIC ===================

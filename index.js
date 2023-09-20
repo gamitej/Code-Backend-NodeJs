@@ -13,6 +13,7 @@ const SwaggerOptions = require("./utils/swagger");
 // routes
 const authRoutes = require("./routes/auth.js");
 const exploreRoutes = require("./routes/explore.js");
+const profileRoutes = require("./routes/profile.js");
 
 // ======= SWAGGER OPTIONS START =======
 
@@ -38,6 +39,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // ========= ROUTES =========
 app.use("/api/v1", authRoutes);
 app.use("/api/v1", exploreRoutes);
+app.use("/api/v1/profile", profileRoutes);
 
 app.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);
