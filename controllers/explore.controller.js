@@ -53,9 +53,11 @@ const getExploreTopics = async (req, res) => {
     // final explore data
     const exploreTopicData = Array.from(topicMapping.values());
 
+    const sortedExploreData = sortBy(exploreTopicData, "title");
+
     // response data
     const response = {
-      data: exploreTopicData,
+      data: sortedExploreData,
       onGoingTopic: {
         data: "arrays",
         onGoingTopic: true,
@@ -124,6 +126,42 @@ const getSelectedTopics = async (req, res) => {
 
 // ==================== MARK QUESTION ====================
 
-const markSelectedTopic = async (req, res) => {};
+const markSelectedTopic = async (req, res) => {
+  try {
+    // request
+    const { user_id, question_id, topic } = req.body;
+
+    if (!user_id && !question_id && !topic)
+      return res
+        .status(404)
+        .json({ data: "All fields are required", error: true });
+
+    const solved = await Solved.findOne({
+      userId: user_id,
+      quesId: question_id,
+      topic,
+    });
+
+    if (solved) {
+      // unmark question
+      await solved.deleteOne();
+      return res
+        .status(200)
+        .json({ data: "Question unmarked successfully", error: true });
+    } else {
+      // save request to db
+      await Solved.create({
+        userId: user_id,
+        quesId: question_id,
+        topic,
+      });
+
+      return res.status(200).json({ data: "Marked", error: false });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ data: "Something went wrong", error: true });
+  }
+};
 
 module.exports = { getSelectedTopics, markSelectedTopic, getExploreTopics };
