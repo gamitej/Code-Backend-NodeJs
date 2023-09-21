@@ -1,5 +1,5 @@
-const Questions = require("../models/Questions");
 const Solved = require("../models/Solved");
+const Questions = require("../models/Questions");
 const { sortBy } = require("lodash");
 const nameMapping = require("../utils/nameMapping.json");
 
@@ -17,7 +17,7 @@ const getExploreTopics = async (req, res) => {
     const questions = await Questions.find();
     const solvedQuestions = await Solved.find({ userId: id });
 
-    // convert solvedQuestions to map
+    // convert solvedQuestions to set of questions id
     const solvedQuestionIds = new Set(
       solvedQuestions.map((solved) => solved.quesId)
     );

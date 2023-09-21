@@ -48,15 +48,4 @@ const tableData = {
   ],
 };
 
-const userData = {
-  easySolved: 10,
-  easyTotal: 72,
-  hardSolved: 0,
-  hardTotal: 31,
-  mediumSolved: 1,
-  mediumTotal: 144,
-  total: 247,
-  totalSolved: 11,
-};
-
-module.exports = { tableData, userData };
+module.exports = { tableData };
