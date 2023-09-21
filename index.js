@@ -15,10 +15,6 @@ const authRoutes = require("./routes/auth.js");
 const exploreRoutes = require("./routes/explore.js");
 const profileRoutes = require("./routes/profile.js");
 
-// ======= SWAGGER OPTIONS START =======
-
-const swaggerSpec = swaggerJsDoc(SwaggerOptions);
-
 // ========== MIDDLEWARE ==========
 const app = express();
 app.use(express.json());
@@ -34,6 +30,7 @@ const MONGO_URL = process.env.MONGO_URL;
 connectToMongoDb(MONGO_URL);
 
 // ============ SWAGGER =========
+const swaggerSpec = swaggerJsDoc(SwaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // ========= ROUTES =========
