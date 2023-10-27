@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const moment = require("moment");
 
 const SolvedSchema = new mongoose.Schema(
   {
@@ -13,6 +14,10 @@ const SolvedSchema = new mongoose.Schema(
     topic: {
       type: String,
       required: true,
+    },
+    dateTime: {
+      type: String,
+      default: () => moment().format("DD:MM:YYYY HH:mm:ss"),
     },
   },
   { timestamps: true }
