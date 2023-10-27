@@ -78,10 +78,27 @@ const getTableData = async (req, res) => {
       solvedQuestions.map((solved) => solved.quesId)
     );
 
+    // convert solvedQuestions to map of id to date-time
+    const solvedQuesDateTimeMap = {};
+    solvedQuestions.forEach(({ quesId, dateTime }) => {
+      solvedQuesDateTimeMap[quesId] = dateTime;
+    });
+
+    // specifid id date-time is avail or not
+    const checkDateTimeInMap = (id) => {
+      if (id in solvedQuesDateTimeMap) {
+        // console.log({
+        //   date: new Date(solvedQuesDateTimeMap[id]),
+        //   name: solvedQuesDateTimeMap[id],
+        // });
+        return solvedQuesDateTimeMap[id];
+      } else return null;
+    };
+
     // data manipulation
     const response = questions.map(
-      ({ url, topic, level, questionName, createdAt, _id }) => ({
-        date: createdAt,
+      ({ url, topic, level, questionName, _id }) => ({
+        date: checkDateTimeInMap(_id),
         done: solvedQuestionIds.has(_id.toString()) ? "Yes" : "No",
         url,
         topic: nameMapping[topic],
@@ -89,6 +106,8 @@ const getTableData = async (req, res) => {
         question: questionName,
       })
     );
+
+    // console.log(response);
 
     const sortedResponse = sortBy(response, "date");
 
