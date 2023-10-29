@@ -86,13 +86,8 @@ const getTableData = async (req, res) => {
 
     // specifid id date-time is avail or not
     const checkDateTimeInMap = (id) => {
-      if (id in solvedQuesDateTimeMap) {
-        // console.log({
-        //   date: new Date(solvedQuesDateTimeMap[id]),
-        //   name: solvedQuesDateTimeMap[id],
-        // });
-        return solvedQuesDateTimeMap[id];
-      } else return null;
+      if (id in solvedQuesDateTimeMap) return solvedQuesDateTimeMap[id];
+      return null;
     };
 
     // data manipulation
