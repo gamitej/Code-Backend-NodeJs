@@ -23,7 +23,6 @@ const verifyToken = async (req, res, next) => {
   } catch (err) {
     return res.status(401).json({ message: "Invalid Token", error: true });
   }
-  return next();
 };
 
 module.exports = verifyToken;

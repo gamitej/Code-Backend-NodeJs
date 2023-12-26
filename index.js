@@ -44,8 +44,8 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // ========= ROUTES =========
 app.use("/api/v1", authRoutes);
-app.use("/api/v1", exploreRoutes);
-app.use("/api/v1/profile", profileRoutes);
+app.use("/api/v1", Protect, exploreRoutes);
+app.use("/api/v1/profile", Protect, profileRoutes);
 
 // database disconnection
 process.on("SIGINT", async () => {
