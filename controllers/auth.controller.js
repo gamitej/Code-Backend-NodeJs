@@ -33,7 +33,7 @@ const userLogin = async (req, res) => {
       });
     }
     return res
-      .status(400)
+      .status(401)
       .json({ message: "Invalid Credentials", error: true });
   } catch (err) {
     console.log(err);
