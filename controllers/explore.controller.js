@@ -146,7 +146,7 @@ const markSelectedTopic = async (req, res) => {
       await solved.deleteOne();
       return res
         .status(200)
-        .json({ data: "Question unmarked successfully", error: true });
+        .json({ data: "Unmarked successfully", error: true });
     } else {
       // save request to db
       await Solved.create({
@@ -155,7 +155,9 @@ const markSelectedTopic = async (req, res) => {
         topic,
       });
 
-      return res.status(200).json({ data: "Marked", error: false });
+      return res
+        .status(200)
+        .json({ data: "Marked successfully", error: false });
     }
   } catch (error) {
     console.log(error);
